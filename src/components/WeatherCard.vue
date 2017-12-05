@@ -3,6 +3,7 @@
     <img :src="wimage" class="image">
     <div style="padding: 14px;">
       <h2>{{ wdata.main.temp }} &deg;C</h2>
+      <p><small>Min: {{ wdata.main.temp_min }} Max: {{ wdata.main.temp_max }}</small></p>
       <span>{{ wdata.weather[0].main }}</span>
       <div class="bottom clearfix">
         <time class="time">{{ wdata.dt_txt }}</time>
@@ -41,7 +42,7 @@ export default {
 }
 
 .image {
-  width: 90%;
+  width: 100px;
   display: block;
   margin: auto;
 }

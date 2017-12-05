@@ -24,6 +24,10 @@ export default new Vuex.Store({
       // return another function which accepts id as a parameter
       return id => state.cities.find(city => city.id === id);
     },
+    getCityByName(state) {
+      // return another function which accepts id as a parameter
+      return name => state.cities.find(city => city.name === name);
+    },
   },
   plugins: [createPersistedState()],
 });

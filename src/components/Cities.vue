@@ -104,7 +104,7 @@ export default {
     },
     viewWeather(index, city) {
       // console.log(city);
-      this.$router.push({ name: 'city-weather', params: { id: city.id } });
+      this.$router.push({ name: 'city-weather', params: { name: city.name } });
     },
   },
 };

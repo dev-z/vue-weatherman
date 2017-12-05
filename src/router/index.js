@@ -13,7 +13,7 @@ export default new Router({
       component: Cities,
     },
     {
-      path: '/cities/:id',
+      path: '/cities/:name',
       name: 'city-weather',
       component: Weather,
     },

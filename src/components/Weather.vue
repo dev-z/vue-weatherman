@@ -5,7 +5,11 @@
       <div class="content-area">
         <div class="city-details">
           <div class="city-text">
+            <h2 class="w-status text-white" v-if="todayForecast.weather">{{ todayForecast.weather[0].main }}</h2>
             <h1 class="text-white">{{ city.name }}, {{ city.country }}</h1>
+          </div>
+          <div class="city-picker">
+            Hakuna Matata
           </div>
         </div>
       </div>
@@ -18,13 +22,14 @@
       <div v-if="error" class="error">
         <p class="text-white">{{ error }}</p>
       </div>
-      <div v-if="forecast.length">
+      <div v-if="nextForecast.length">
         <el-row>
-          <el-col :span="4" v-for="(wdata, index) in forecast" :key="wdata.dt" style="margin: 1em">
-            <weather-card :wdata="wdata"/>
+          <el-col :span="6" v-for="(wdata, index) in nextForecast" :key="wdata.dt">
+            <div style="margin: 0.5em">
+              <weather-card :wdata="wdata"/>
+            </div>
           </el-col>
         </el-row>
-        <!-- <div v-for="wdata in forecast" :key="wdata.dt" :wdata="wdata" ></div> -->
       </div>
     </div>
   </div>
@@ -37,7 +42,7 @@ export default {
   name: 'Weather',
   computed: {
     city() {
-      return this.$store.getters.getCityById(this.$route.params.id);
+      return this.$store.getters.getCityByName(this.$route.params.name);
     },
   },
   components: {
@@ -45,7 +50,8 @@ export default {
   },
   data() {
     return {
-      forecast: [],
+      todayForecast: {},
+      nextForecast: [],
     };
   },
   created() {
@@ -66,7 +72,8 @@ export default {
       const url = `http://api.openweathermap.org/data/2.5/forecast?q=${this.city.name},${this.city.country}&APPID=258a05b8d98cd3170949d8a8df2b411a&cnt=5&units=metric`;
       axios.get(url)
         .then((response) => {
-          self.forecast = response.data.list;
+          self.todayForecast = response.data.list[0];
+          self.nextForecast = response.data.list.splice(1);
           self.loading = false;
         })
         // eslint-disable-next-line no-unused-vars
@@ -86,7 +93,7 @@ export default {
 </script>
 <style>
 .bg-city {
-  height: 20em;
+  height: 22em;
   background: #c94b4b; /* fallback for old browsers */
   /* Chrome 10-25, Safari 5.1-6 */
   background: -webkit-linear-gradient(to bottom, #4b134f, #c94b4b);
@@ -94,19 +101,27 @@ export default {
   background: linear-gradient(to bottom, #4b134f, #c94b4b);
 }
 .bg-forecast {
-  height: 22em;
+  height: 20em;
   background-color: #cccccc;
 }
 .text-white {
   color: #f4f4f4;
 }
-
 .city-details {
   position: relative;
 }
 .city-details > .city-text {
   position: absolute;
   top: 5em;
+}
+.city-details > .city-picker {
+  position: absolute;
+  top: 0em;
+  right: 0em;
+}
+.w-status {
+  font-size: 3em;
+  margin: 0px;
 }
 </style>
 
