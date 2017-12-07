@@ -3,18 +3,10 @@
     <!-- City Details -->
     <div class="bg-city">
       <div class="content-area">
-        <div class="city-details">
-          <div class="city-text">
-            <h2 class="w-status text-white" v-if="todayForecast.weather">{{ todayForecast.weather[0].main }}</h2>
-            <h1 class="text-white">{{ city.name }}, {{ city.country }}</h1>
-          </div>
-          <div class="city-picker">
-            Hakuna Matata
-          </div>
-        </div>
+        <weather-main :wdata="todayForecast" :city="city"/>
       </div>
     </div>
-    <!-- City Forecast -->
+    <!-- Next 4 day forecast -->
     <div class="bg-forecast">
       <div class="loading" v-if="loading">
         Loading...
@@ -37,16 +29,29 @@
 <script>
 import axios from 'axios';
 import WeatherCard from './WeatherCard';
+import WeatherMain from './WeatherMain';
 
 export default {
   name: 'Weather',
   computed: {
     city() {
-      return this.$store.getters.getCityByName(this.$route.params.name);
+      const city = this.$store.getters.getCityByName(this.$route.params.name);
+      if (city) {
+        return city;
+      }
+      this.$message({
+        showClose: true,
+        message: 'Invalid URL parameter. City not found.',
+        type: 'error',
+        center: true,
+      });
+      this.$router.go(-1);
+      return {};
     },
   },
   components: {
     WeatherCard,
+    WeatherMain,
   },
   data() {
     return {
@@ -65,6 +70,10 @@ export default {
   },
   methods: {
     fetchData() {
+      if (!this.city) {
+        this.error = true;
+        return;
+      }
       this.error = null;
       this.loading = true;
       const self = this; // Context capture to avoid loss of this binding
@@ -80,12 +89,13 @@ export default {
         .catch((err) => {
           self.error = 'Oops, could not fetch weather data. Please try again later';
           self.loading = false;
-          this.$message({
+          self.$message({
             showClose: true,
-            message: 'Error in fetching weather data.',
+            message: 'Error in fetching weather data. City not found.',
             type: 'error',
             center: true,
           });
+          self.$router.go(-1);
         });
     },
   },
@@ -94,34 +104,12 @@ export default {
 <style>
 .bg-city {
   height: 22em;
-  background: #c94b4b; /* fallback for old browsers */
-  /* Chrome 10-25, Safari 5.1-6 */
-  background: -webkit-linear-gradient(to bottom, #4b134f, #c94b4b);
-  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to bottom, #4b134f, #c94b4b);
+  background: #c94b4b; /* fallback */
+  /* background-image: url('../src/assets/bg_city_default.png') */
 }
 .bg-forecast {
   height: 20em;
   background-color: #cccccc;
-}
-.text-white {
-  color: #f4f4f4;
-}
-.city-details {
-  position: relative;
-}
-.city-details > .city-text {
-  position: absolute;
-  top: 5em;
-}
-.city-details > .city-picker {
-  position: absolute;
-  top: 0em;
-  right: 0em;
-}
-.w-status {
-  font-size: 3em;
-  margin: 0px;
 }
 </style>
 

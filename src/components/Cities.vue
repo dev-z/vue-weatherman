@@ -79,7 +79,6 @@ export default {
   },
   methods: {
     removeCity(index, city) {
-      // console.log(city.name);
       this.$store.commit('removeCity', city);
       this.$message({
         showClose: true,
@@ -92,6 +91,8 @@ export default {
       // TODO Validate new city
       // add id to new city
       this.newCity.id = generateId();
+      this.newCity.name = this.newCity.name.charAt(0).toUpperCase() + this.newCity.name.slice(1);
+      this.newCity.country = this.newCity.country.toUpperCase();
       this.$store.commit('addCity', this.newCity);
       this.cityFormVisible = false;
       this.newCity = {};

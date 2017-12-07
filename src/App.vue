@@ -31,4 +31,13 @@ body {
 .content-area {
   padding: 6em 1em 1em 1em;
 }
+.text-white {
+  color: #f4f4f4;
+}
+.text-grey {
+  color: #cccccc;
+}
+.text-center {
+  text-align: center;
+}
 </style>
