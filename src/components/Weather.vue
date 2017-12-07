@@ -9,12 +9,12 @@
     <!-- Next 4 day forecast -->
     <div class="bg-forecast">
       <div class="loading" v-if="loading">
-        Loading...
+        <p class="text-center">Loading...</p>
       </div>
       <div v-if="error" class="error">
         <p class="text-white">{{ error }}</p>
       </div>
-      <div v-if="nextForecast.length">
+      <div v-if="nextForecast.length && !loading">
         <el-row>
           <el-col :span="6" v-for="(wdata, index) in nextForecast" :key="wdata.dt">
             <div style="margin: 0.5em">

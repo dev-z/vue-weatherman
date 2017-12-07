@@ -28,16 +28,21 @@
   </el-row>
 </template>
 <script>
+import weatherIconMixin from '../mixins/mx_weathericon';
+
 export default {
   name: 'WeatherMain',
   props: ['wdata', 'city'],
+  mixins: [weatherIconMixin],
   data() {
     return {
-      wimage: '../src/assets/icons/sunny.png',
       selectedCityName: this.city.name,
     };
   },
   computed: {
+    wimage() {
+      return this.getWeatherIcon(this.wdata.weather[0].id);
+    },
     weather() {
       if (this.wdata && this.wdata.weather) {
         return this.wdata.weather[0];
