@@ -68,8 +68,4 @@ export default {
 .clearfix:after {
   clear: both;
 }
-
-.pull-right {
-  float: right;
-}
 </style>

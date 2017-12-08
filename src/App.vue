@@ -40,4 +40,10 @@ body {
 .text-center {
   text-align: center;
 }
+.text-right {
+  text-align: right;
+}
+.pull-right {
+  float: right;
+}
 </style>

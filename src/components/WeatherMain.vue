@@ -32,6 +32,11 @@
               <span style="float: right; color: #8492a6; font-size: 13px" class="dp-font">{{ city.country }}</span>
           </el-option>
         </el-select>
+        <div class="text-white text-right other-text">
+          <h3>Min {{ weatherTemp.temp_min }}</h3>
+          <h3>Max {{ weatherTemp.temp_max }}</h3>
+          <h3 class="text-grey">{{ wdata.dt_txt }}</h3>
+        </div>
       </div>
     </el-col>
   </el-row>
@@ -91,6 +96,9 @@ export default {
 <style scoped>
 .city-text {
   margin-top: 3em;
+}
+.other-text {
+  margin-top: 4em;
 }
 .city-picker {
   float: right;
