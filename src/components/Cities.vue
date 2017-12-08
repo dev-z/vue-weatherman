@@ -78,6 +78,7 @@ export default {
     },
   },
   methods: {
+    // Removes a city from the store
     removeCity(index, city) {
       this.$store.commit('removeCity', city);
       this.$message({
@@ -87,6 +88,7 @@ export default {
         center: true,
       });
     },
+    // Adds a city to the store
     addCity() {
       // TODO Validate new city
       // add id to new city

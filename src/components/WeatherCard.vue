@@ -1,3 +1,11 @@
+<!-- 
+@desc: Component to display the weather details in a card
+
+@param wdata  {Object}  Object containing current day's weather data.
+
+@example:
+<weather-card :wdata="wdata"/>
+-->
 <template>
   <el-card :body-style="{ padding: '0px' }">
     <img :src="wimage" class="image">
@@ -21,11 +29,9 @@ export default {
   name: 'WeatherCard',
   mixins: [weatherIconMixin],
   computed: {
+    // stores the weather icon url
     wimage() {
       return this.getWeatherIcon(this.wdata.weather[0].id);
-    },
-    currentDate() {
-      return new Date(this.wdata.dt);
     },
   },
   props: ['wdata'],

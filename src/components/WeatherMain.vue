@@ -1,3 +1,12 @@
+<!-- 
+@desc: Component to display the current city details and current date's weather forecast
+
+@param wdata  {Object}  Object containing current day's weather data.
+@param city   {Object}  City details { name, country }
+
+@example:
+<weather-main :wdata="todayForecast" :city="city"/>
+-->
 <template>
   <el-row>
     <el-col :span="8">
@@ -40,27 +49,33 @@ export default {
     };
   },
   computed: {
+    // stores the weather icon url
     wimage() {
       return this.getWeatherIcon(this.wdata.weather[0].id);
     },
+    // contains the weather data
     weather() {
       if (this.wdata && this.wdata.weather) {
         return this.wdata.weather[0];
       }
       return {};
     },
+    // contains the temperature data
     weatherTemp() {
       if (this.wdata && this.wdata.main) {
         return this.wdata.main;
       }
       return {};
     },
+    // stores the list of all cities
     cities() {
       return this.$store.state.cities;
     },
   },
   watch: {
+    // changes the city name in url params as soon as user selects a different city.
     selectedCityName(newCityName) {
+      // using .replace() instead of .push() because user is not navigating to a new page.
       this.$router.replace({ name: 'city-weather', params: { name: newCityName } });
     },
   },

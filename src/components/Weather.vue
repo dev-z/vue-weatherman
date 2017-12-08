@@ -34,11 +34,14 @@ import WeatherMain from './WeatherMain';
 export default {
   name: 'Weather',
   computed: {
+    // stores the city details
     city() {
       const city = this.$store.getters.getCityByName(this.$route.params.name);
+      // if city is found, return city,
       if (city) {
         return city;
       }
+      // otherwise display error and go back to prev state
       this.$message({
         showClose: true,
         message: 'Invalid URL parameter. City not found.',
@@ -69,6 +72,7 @@ export default {
     $route: 'fetchData',
   },
   methods: {
+    // Fetches weather data from OpenWeatherMap API
     fetchData() {
       if (!this.city) {
         this.error = true;

@@ -1,5 +1,10 @@
 export default {
   methods: {
+    /**
+     * Returns the url of the icon pertaining to the weather condition.
+     * @param {Number} id ID of the weather condition. e.g. 800 for clear skies.
+     * @returns {String} url of the icon asset.
+     */
     getWeatherIcon(id) {
       let wid = id;
       if (id >= 200 && id < 300) {
