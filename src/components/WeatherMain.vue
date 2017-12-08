@@ -56,7 +56,7 @@ export default {
   computed: {
     // stores the weather icon url
     wimage() {
-      return this.getWeatherIcon(this.wdata.weather[0].id);
+      return this.getWeatherIcon(this.weather.id);
     },
     // contains the weather data
     weather() {

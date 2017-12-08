@@ -2,17 +2,20 @@
   <header>
     <div class="container">
       <h1><router-link to="/cities">WeatherMan</router-link></h1>
-      <!-- <nav>
-        <a href="#">Home</a>
-        <a href="#">About Us</a>
-        <a href="#">Blog</a>
-      </nav> -->
+      <nav v-show="showNav">
+        <router-link to="/cities">Home</router-link></h1>
+      </nav>
     </div>
   </header>
 </template>
 <script>
 export default {
   name: 'Header',
+  computed: {
+    showNav() {
+      return this.$route.name !== 'cities';
+    },
+  },
 };
 </script>
 <style scoped>
@@ -55,7 +58,6 @@ header nav a {
   margin-left: 10px;
 }
 header nav a:hover {
-  border-top: 2px dotted white;
-  border-bottom: 2px dotted white;
+  border-bottom: 2px solid white;
 }
 </style>

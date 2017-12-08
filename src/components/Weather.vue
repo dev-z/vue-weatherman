@@ -14,7 +14,7 @@
       <div v-if="error" class="error">
         <p class="text-white">{{ error }}</p>
       </div>
-      <div v-if="nextForecast.length && !loading">
+      <div v-show="nextForecast.length && !loading">
         <el-row>
           <el-col :span="6" v-for="(wdata, index) in nextForecast" :key="wdata.dt">
             <div style="margin: 0.5em">
@@ -108,12 +108,11 @@ export default {
 <style>
 .bg-city {
   height: 22em;
-  background: #c94b4b; /* fallback */
-  /* background-image: url('../src/assets/bg_city_default.png') */
+  background:#8D6A9F; /* fallback */
 }
 .bg-forecast {
   height: 20em;
-  background-color: #cccccc;
+  background-color: #C5CBD3;
 }
 </style>
 

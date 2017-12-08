@@ -3,7 +3,11 @@
     <div class="content-area">
       <div class="bg-info">
         {{ cities.length}} Cities Found
-        <el-button type="primary" icon="el-icon-circle-plus" @click="cityFormVisible = true">Add City</el-button>
+        <el-button type="primary" class="pull-right"
+          icon="el-icon-circle-plus" 
+          @click="cityFormVisible = true">
+          Add City
+        </el-button>
       </div>
       <el-table :data="cities" style="width: 100%" stripe>
         <el-table-column
